@@ -28,7 +28,7 @@ $scriptPath = split-path -parent $MyInvocation.MyCommand.Definition
 Write-Verbose "Script Path: $scriptPath"
 
 #Load XrmCIFramework
-$xrmCIToolkit = $scriptPath + "\Xrm.Framework.CI.PowerShell.Cmdlets.dll"
+$xrmCIToolkit = $scriptPath + "\..\Xrm.Framework.CI.PowerShell.Cmdlets\bin\debug\Xrm.Framework.CI.PowerShell.Cmdlets.dll"
 Write-Verbose "Importing CIToolkit: $xrmCIToolkit" 
 Import-Module $xrmCIToolkit
 Write-Verbose "Imported CIToolkit"

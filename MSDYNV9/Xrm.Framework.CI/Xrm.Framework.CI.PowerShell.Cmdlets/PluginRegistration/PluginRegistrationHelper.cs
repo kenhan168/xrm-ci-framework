@@ -107,10 +107,67 @@ namespace Xrm.Framework.CI.PowerShell.Cmdlets
             var objectsToDelete = OrganizationService.Execute(retrieveDependenciesForDeleteRequest);
             foreach (var objectToDelete in ((EntityCollection)objectsToDelete.Results.Values.First()).Entities)
             {
-                OrganizationService.Delete(SdkMessageProcessingStep.EntityLogicalName, objectToDelete.GetAttributeValue<Guid>("dependentcomponentobjectid"));
+                var dependentComponentObjectid = objectToDelete.GetAttributeValue<Guid>("dependentcomponentobjectid");
+                var dependentComponentType = objectToDelete.FormattedValues["dependentcomponenttype"];
+                
+                if (string.Compare(dependentComponentType, Workflow.EntityLogicalName, StringComparison.InvariantCultureIgnoreCase) == 0)
+                {
+                    DeleteWorkflow(dependentComponentObjectid);
+                }
+                else if (string.Compare(dependentComponentType, "SDK Message Processing Step", StringComparison.InvariantCultureIgnoreCase) == 0)
+                {
+                    OrganizationService.Delete(SdkMessageProcessingStep.EntityLogicalName, objectToDelete.GetAttributeValue<Guid>("dependentcomponentobjectid"));
+                }
+                else
+                {
+                    throw new ApplicationException(
+                        $"Unable to handle depency component object {dependentComponentType}, id: {objectToDelete.GetAttributeValue<Guid>("dependentcomponentobjectid")}");
+                }
             }
 
             OrganizationService.Delete(entityLogicalName, objectId);
+        }
+
+        private void DeleteWorkflow(Guid _workflowId)
+        {
+
+            SetStateRequest deactivateRequest = new SetStateRequest
+            {
+                EntityMoniker =
+                    new EntityReference(Workflow.EntityLogicalName, _workflowId),
+                State = new OptionSetValue((int) WorkflowState.Draft),
+                Status = new OptionSetValue((int) WorkflowStatusCode.Draft)
+            };
+            OrganizationService.Execute(deactivateRequest);
+
+            var workFlowRetrieveDependenciesForDeleteRequest = new RetrieveDependenciesForDeleteRequest()
+            {
+                ComponentType = 29, // dependentcomponenttype for workflow = 29, https://msdn.microsoft.com/en-us/library/mt607793.aspx
+                ObjectId = _workflowId
+            };
+
+            var subObjectsToDelete = OrganizationService.Execute(workFlowRetrieveDependenciesForDeleteRequest);
+            foreach (var subObjectToDelete in ((EntityCollection) subObjectsToDelete.Results.Values.First()).Entities)
+            {
+                var dependentComponentObjectId = subObjectToDelete.GetAttributeValue<Guid>("dependentcomponentobjectid");
+                var dependentComponentType = subObjectToDelete.FormattedValues["dependentcomponenttype"];
+                if (string.Compare(dependentComponentType, Workflow.EntityLogicalName, StringComparison.InvariantCultureIgnoreCase) == 0)
+                {
+                    // Delete the workflow
+                    DeleteWorkflow(dependentComponentObjectId);
+                }
+                else if (string.Compare(dependentComponentType, "SDK Message Processing Step", StringComparison.InvariantCultureIgnoreCase) == 0)
+                {
+                    OrganizationService.Delete(SdkMessageProcessingStep.EntityLogicalName, dependentComponentObjectId);
+                }
+                else
+                {
+                    throw new ApplicationException(
+                        $"Unable to handle depency component object {subObjectToDelete.FormattedValues["dependentcomponenttype"]}, id: {subObjectToDelete.GetAttributeValue<Guid>("dependentcomponentobjectid")}");
+                }
+            }
+
+            OrganizationService.Delete(Workflow.EntityLogicalName, _workflowId);
         }
 
         private Guid GetPluginAssemblyId(string name)

@@ -8,6 +8,7 @@ using System.Management.Automation;
 using System.Text;
 using System.Threading.Tasks;
 using Xrm.Framework.CI.PowerShell.Cmdlets.Common;
+using Debugger = System.Diagnostics.Debugger;
 
 namespace Xrm.Framework.CI.PowerShell.Cmdlets
 {
@@ -50,7 +51,7 @@ namespace Xrm.Framework.CI.PowerShell.Cmdlets
         {
             base.ProcessRecord();
 
-            base.WriteVerbose("Plugin Registration intiated");
+            base.WriteVerbose("Ken: Plugin Registration intiated");
 
             FileInfo assemblyInfo = new FileInfo(AssemblyPath);
             var lastIndex = assemblyInfo.Name.LastIndexOf(".dll");
