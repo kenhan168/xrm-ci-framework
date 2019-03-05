@@ -33,5 +33,3 @@ for ($i=0; $i -lt $SourceSolutionsToMerge.length; $i++) {
 	Write-Verbose "exportSolutionOutputPath: $exportSolutionOutputPath"
 	& "$scriptPath\ExportSolution.ps1" -CrmConnectionString $SourceSolutionsCrmConnectionString -SolutionName $sourceSolution -ExportSolutionOutputPath $exportSolutionOutputPath -Timeout $Timeout
 }
-
-Exit

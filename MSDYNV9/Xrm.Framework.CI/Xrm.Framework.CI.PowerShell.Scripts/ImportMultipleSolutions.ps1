@@ -38,6 +38,3 @@ for ($i=0; $i -lt $SourceSolutionsToMerge.length; $i++) {
 
 	& "$scriptPath\CopySolutionComponents.ps1" -CrmConnectionString $TargetSolutionCrmConnectionString -FromSolutionName $fromSolutionName -ToSolutionName $TargetSolutionUniqueName
 }
-
-Exit
-
