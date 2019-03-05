@@ -69,6 +69,7 @@ namespace Xrm.Framework.CI.Common
 
         private IOrganizationService ConnectToCRM(string connectionString, int timeout)
         {
+            Logger.LogVerbose($"Connect to CRM with connectionString: {connectionString} ");
             CrmServiceClient serviceClient = null;
             for (int i = 1; i <= ConnectRetryCount; i++)
             {

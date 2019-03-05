@@ -19,6 +19,8 @@ param(
 [string]$logFilename #Optional - will use this as import log file name
 )
 
+$VerbosePreference = "Continue"
+
 $ErrorActionPreference = "Stop"
 $InformationPreference = "Continue"
 

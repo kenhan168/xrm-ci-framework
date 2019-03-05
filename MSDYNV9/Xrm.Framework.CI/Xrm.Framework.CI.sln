@@ -3,8 +3,6 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.27130.2036
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{F5034706-568F-408A-B7B3-4D38C6DB8A32}") = "Xrm.Framework.CI.PowerShell.Scripts", "Xrm.Framework.CI.PowerShell.Scripts\Xrm.Framework.CI.PowerShell.Scripts.pssproj", "{26E7A989-C329-4B54-A80D-200FC23306B9}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Xrm.Framework.CI.PowerShell.Cmdlets", "Xrm.Framework.CI.PowerShell.Cmdlets\Xrm.Framework.CI.PowerShell.Cmdlets.csproj", "{0AF2D810-8E16-4AA1-B3F8-75EB17CF8A24}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "VSTS Build Definitions", "VSTS Build Definitions", "{CA3B7E83-C429-4DA0-913D-C857111DC0B0}"
@@ -25,16 +23,14 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Xrm.Framework.CI.Common.Int
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Xrm.Framework.CI.Tools", "Xrm.Framework.CI.Tools\Xrm.Framework.CI.Tools.csproj", "{D4E9CB06-119E-4FB4-BD12-56DB49164EB0}"
 EndProject
+Project("{F5034706-568F-408A-B7B3-4D38C6DB8A32}") = "Xrm.Framework.CI.PowerShell.Scripts", "Xrm.Framework.CI.PowerShell.Scripts\Xrm.Framework.CI.PowerShell.Scripts.pssproj", "{6CAFC0C6-A428-4D30-A9F9-700E829FEA51}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{26E7A989-C329-4B54-A80D-200FC23306B9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{26E7A989-C329-4B54-A80D-200FC23306B9}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{26E7A989-C329-4B54-A80D-200FC23306B9}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{26E7A989-C329-4B54-A80D-200FC23306B9}.Release|Any CPU.Build.0 = Release|Any CPU
 		{0AF2D810-8E16-4AA1-B3F8-75EB17CF8A24}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{0AF2D810-8E16-4AA1-B3F8-75EB17CF8A24}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0AF2D810-8E16-4AA1-B3F8-75EB17CF8A24}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -55,6 +51,10 @@ Global
 		{D4E9CB06-119E-4FB4-BD12-56DB49164EB0}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D4E9CB06-119E-4FB4-BD12-56DB49164EB0}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D4E9CB06-119E-4FB4-BD12-56DB49164EB0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6CAFC0C6-A428-4D30-A9F9-700E829FEA51}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6CAFC0C6-A428-4D30-A9F9-700E829FEA51}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6CAFC0C6-A428-4D30-A9F9-700E829FEA51}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6CAFC0C6-A428-4D30-A9F9-700E829FEA51}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

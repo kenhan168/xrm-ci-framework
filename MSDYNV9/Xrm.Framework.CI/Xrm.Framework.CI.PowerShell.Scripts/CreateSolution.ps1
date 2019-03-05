@@ -12,6 +12,8 @@ param(
 [int]$Timeout #Optional - CRM connection timeout
 )
 
+$VerbosePreference = "Continue"
+
 $ErrorActionPreference = "Stop"
 
 Write-Verbose 'Entering CreateSolution.ps1'

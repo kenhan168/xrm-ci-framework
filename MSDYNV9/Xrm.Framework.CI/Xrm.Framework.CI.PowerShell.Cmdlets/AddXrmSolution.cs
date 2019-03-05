@@ -85,21 +85,38 @@ namespace Xrm.Framework.CI.PowerShell.Cmdlets
 
             base.WriteVerbose("Creating Solution");
 
-            Solution newSolution = new Solution();
+            base.WriteVerbose(string.Format("Searching for Solution: {0}", UniqueName));
+            QueryByAttribute querySolutions = new QueryByAttribute("solution");
+            querySolutions.Attributes.Add("uniquename");
+            querySolutions.ColumnSet = new ColumnSet(true);
+            querySolutions.Values.Add(UniqueName);
 
-            newSolution.UniqueName = UniqueName;
-            newSolution.FriendlyName = DisplayName;
-            newSolution.Version = VersionNumber;
-            newSolution.Description = Description;
-            newSolution.PublisherId = publisher.ToEntityReference();
+            EntityCollection solutions = OrganizationService.RetrieveMultiple(querySolutions);
 
-            Guid solutionId = OrganizationService.Create(newSolution);
+            base.WriteVerbose(string.Format("# of Solutions found: {0}", solutions.Entities.Count));
 
-            base.WriteVerbose(string.Format("Solution Created with Id: {0}", solutionId));
+            if (solutions.Entities.Count == 0)
+            {
+                Solution newSolution = new Solution();
 
-            base.WriteObject(solutionId);
+                newSolution.UniqueName = UniqueName;
+                newSolution.FriendlyName = DisplayName;
+                newSolution.Version = VersionNumber;
+                newSolution.Description = Description;
+                newSolution.PublisherId = publisher.ToEntityReference();
 
-            base.WriteVerbose("Completed AddXrmSolution");
+                Guid solutionId = OrganizationService.Create(newSolution);
+
+                base.WriteVerbose(string.Format("Solution Created with Id: {0}", solutionId));
+
+                base.WriteObject(solutionId);
+
+                base.WriteVerbose("Completed AddXrmSolution");
+            }
+            else
+            {
+                base.WriteVerbose($"Solution: {UniqueName} found, skip the Adding.");
+            }
         }
 
         #endregion
